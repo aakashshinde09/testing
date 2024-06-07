@@ -7,10 +7,16 @@ COPY . /opt
 # Set the working directory in the container
 WORKDIR /opt/spring-backend
 
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
 # Install dependencies
-RUN apt update && \
-    apt install openjdk-11-jdk -y && \
-    apt install maven -y
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    openjdk-11-jdk \
+    maven -y && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 && \
     export PATH=$JAVA_HOME/bin:$PATH
