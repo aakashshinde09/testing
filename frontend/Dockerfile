@@ -1,6 +1,6 @@
 From nginx
-WORKDIR /opt
-COPY . .
+COPY . /opt
+WORKDIR /opt/angular-frontend
 RUN apt update
 RUN apt install nodejs npm -y
 RUN npm install -g @angular/cli
