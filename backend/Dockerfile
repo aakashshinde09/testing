@@ -13,8 +13,8 @@ RUN apt-get clean && \
 
 # Install dependencies
 RUN apt update 
+RUN apt install maven -y
 RUN apt install openjdk-11-jdk -y
-RUN apt install maven -y 
     
 RUN export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 && \
     export PATH=$JAVA_HOME/bin:$PATH
