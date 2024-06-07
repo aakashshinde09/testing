@@ -5,22 +5,22 @@ FROM tomcat
 COPY . /opt
 
 # Set the working directory in the container
-WORKDIR /app/spring-backend
+WORKDIR /opt/spring-backend
 
 # Install dependencies
 RUN apt update && \
     apt install openjdk-11-jdk -y && \
-    apt install maven
+    apt install maven -y
 
 RUN export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 && \
     export PATH=$JAVA_HOME/bin:$PATH
     
 # Use sed to modify the database configuration in application.properties
-RUN sed -i 's/spring.datasource.url=jdbc:mysql:\/\/localhost:3306\/springbackend?useSSL=false/spring.datasource.url=jdbc:mysql:\/\/database-1.ch2eco4q2tci.us-east-1.rds.amazonaws.com:3306\/springbackend?useSSL=false/' src/main/resources/application.properties && \
-    sed -i 's/spring.datasource.username=springbackend/spring.datasource.username=admin/' src/main/resources/application.properties && \
-    sed -i 's/spring.datasource.password=springbackend/spring.datasource.password=akash1234/' src/main/resources/application.properties && \
+RUN sed -i 's/spring.datasource.url=jdbc:mysql:\/\/localhost:3306\/springbackend?useSSL=false/spring.datasource.url=jdbc:mysql:\/\/database-1.ch2eco4q2tci.us-east-1.rds.amazonaws.com:3306\/springbackend?useSSL=false/' /opt/spring-backend/src/main/resources/application.properties && \
+    sed -i 's/spring.datasource.username=springbackend/spring.datasource.username=admin/' /opt/spring-backend/src/main/resources/application.properties && \
+    sed -i 's/spring.datasource.password=springbackend/spring.datasource.password=akash1234/' /opt/spring-backend/src/main/resources/application.properties && \
     
-    echo 'server.port=8085' >> src/main/resources/application.properties
+    echo 'server.port=8085' >> /opt/spring-backend/src/main/resources/application.properties
 
 
 
