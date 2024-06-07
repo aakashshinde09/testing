@@ -1,22 +1,35 @@
 # Use Ubuntu as base image
 FROM tomcat
 
-# Install dependencies
-RUN apt-get update && \
-    apt-get install -y openjdk-8-jdk maven && \
-    rm -rf /var/lib/apt/lists/*
+# Copy the Maven project directory into the container
+COPY . /opt
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /app/spring-backend
 
-# Copy the Maven project directory into the container
-COPY . /app
+# Install dependencies
+RUN apt update && \
+    apt install openjdk-11-jdk -y && \
+    apt install maven
+
+RUN export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 && \
+    export PATH=$JAVA_HOME/bin:$PATH
+    
+# Use sed to modify the database configuration in application.properties
+RUN sed -i 's/spring.datasource.url=jdbc:mysql:\/\/localhost:3306\/springbackend?useSSL=false/spring.datasource.url=jdbc:mysql:\/\/database-1.ch2eco4q2tci.us-east-1.rds.amazonaws.com:3306\/springbackend?useSSL=false/' src/main/resources/application.properties && \
+    sed -i 's/spring.datasource.username=springbackend/spring.datasource.username=admin/' src/main/resources/application.properties && \
+    sed -i 's/spring.datasource.password=springbackend/spring.datasource.password=akash1234/' src/main/resources/application.properties && \
+    
+    echo 'server.port=8085' >> src/main/resources/application.properties
+
+
+
 
 # Build the Maven project
 RUN mvn clean package -Dmaven.test.skip=true
 
 # Expose the port the application runs on
-EXPOSE 8080
+EXPOSE 8085
 
 # Command to run the application
 CMD ["java", "-jar", "target/spring-backend-v1.jar"]
