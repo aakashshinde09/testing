@@ -19,11 +19,11 @@ RUN export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 && \
 RUN sed -i 's/spring.datasource.url=jdbc:mysql:\/\/localhost:3306\/springbackend?useSSL=false/spring.datasource.url=jdbc:mysql:\/\/database-1.ch2eco4q2tci.us-east-1.rds.amazonaws.com:3306\/springbackend?useSSL=false/' /opt/spring-backend/src/main/resources/application.properties && \
     sed -i 's/spring.datasource.username=springbackend/spring.datasource.username=admin/' /opt/spring-backend/src/main/resources/application.properties && \
     sed -i 's/spring.datasource.password=springbackend/spring.datasource.password=akash1234/' /opt/spring-backend/src/main/resources/application.properties && \
-    
     echo 'server.port=8085' >> /opt/spring-backend/src/main/resources/application.properties
 
 
-
+RUN export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+RUN export PATH=$JAVA_HOME/bin:$PATH
 
 # Build the Maven project
 RUN mvn clean package -Dmaven.test.skip=true
