@@ -5,7 +5,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 ENV PATH=$JAVA_HOME/bin:$PATH
 
 # Copy the Maven project directory into the container
-COPY spring-backend /opt
+COPY . /opt
 
 # Set the working directory in the container
 WORKDIR /opt/spring-backend

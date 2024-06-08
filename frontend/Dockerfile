@@ -1,5 +1,5 @@
 From nginx
-COPY angular-frontend /opt
+COPY . /opt
 WORKDIR /opt/angular-frontend
 RUN apt update
 RUN apt install nodejs npm -y
