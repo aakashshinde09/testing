@@ -24,9 +24,9 @@ RUN apt install openjdk-11-jdk -y
 # Use sed to modify the database configuration in application.properties
 RUN sed -i 's/spring.datasource.url=jdbc:mysql:\/\/localhost:3306\/springbackend?useSSL=false/spring.datasource.url=jdbc:mysql:\/\/database-1.ch2eco4q2tci.us-east-1.rds.amazonaws.com:3306\/springbackend?useSSL=false/' /opt/spring-backend/src/main/resources/application.properties && \
     sed -i 's/spring.datasource.username=springbackend/spring.datasource.username=admin/' /opt/spring-backend/src/main/resources/application.properties && \
-    sed -i 's/spring.datasource.password=springbackend/spring.datasource.password=akash1234/' /opt/spring-backend/src/main/resources/application.properties && \
-    echo -e '\nserver.port=8085' >> /opt/spring-backend/src/main/resources/application.properties
-
+    sed -i 's/spring.datasource.password=springbackend/spring.datasource.password=akash1234/' /opt/spring-backend/src/main/resources/application.properties
+    
+RUN echo 'server.port=8085' >> /opt/spring-backend/src/main/resources/application.properties
 
 # Build the Maven project
 RUN mvn clean package -Dmaven.test.skip=true
