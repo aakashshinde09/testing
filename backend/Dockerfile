@@ -26,7 +26,7 @@ RUN sed -i 's/spring.datasource.url=jdbc:mysql:\/\/localhost:3306\/springbackend
     sed -i 's/spring.datasource.username=springbackend/spring.datasource.username=admin/' /opt/spring-backend/src/main/resources/application.properties && \
     sed -i 's/spring.datasource.password=springbackend/spring.datasource.password=akash1234/' /opt/spring-backend/src/main/resources/application.properties
 
-RUN echo ""
+RUN echo "" >> /opt/spring-backend/src/main/resources/application.properties
 RUN echo 'server.port=8085' >> /opt/spring-backend/src/main/resources/application.properties
 
 # Build the Maven project
